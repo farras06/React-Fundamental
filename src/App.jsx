@@ -2,12 +2,14 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import NewScreen from './NewScreen'
-import TabelFunction from './Table';
 import ProductBooks from './view/component/ProductBooks'
 import Brave from './brave.png'
 import Crazy from './crazyRich.png'
 import Educated from './educated.png'
 import Handmaid from './handmaid.png'
+import CounterScreen from './view/component/CounterScereen';
+import InputScreen from './view/component/InputScreen'
+import RegisterScreen from './view/component/RegisterScreen';
 
 function App () {
 
@@ -73,8 +75,15 @@ function App () {
 
   return (
     <div className='App'>
-      <h1>BookSTORE</h1>
+      {/* <h1>BookSTORE</h1>
       <div className='row'>{renderProduct()}</div>
+      <CounterScreen /> */}
+
+      {/* <InputScreen /> */}
+
+      <RegisterScreen />
+
+
     </div>
   )
 }
