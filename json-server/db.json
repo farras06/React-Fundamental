@@ -1,0 +1,104 @@
+{
+  "post": [],
+  "comment": [],
+  "user": [
+    {
+      "id": 1,
+      "username": "Budi",
+      "password": "password",
+      "fullName": "Budi Malas",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "adi",
+      "password": "password",
+      "fullName": "Adi Malas",
+      "role": "admin"
+    },
+    {
+      "username": "Will",
+      "password": "password",
+      "fullname": "Will i will",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "username": "budi",
+      "fullname": "budi",
+      "password": "123",
+      "role": "admin",
+      "id": 4
+    },
+    {
+      "username": "budi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 5
+    },
+    {
+      "username": "budi",
+      "fullname": "",
+      "password": "123",
+      "role": "",
+      "id": 6
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 7
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 8
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 9
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 10
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 11
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 12
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 13
+    },
+    {
+      "username": "adi",
+      "fullname": "",
+      "password": "",
+      "role": "",
+      "id": 14
+    }
+  ]
+}

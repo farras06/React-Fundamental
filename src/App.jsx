@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom"
+
 import logo from './logo.svg';
 import './App.css';
 import NewScreen from './NewScreen'
@@ -10,8 +12,17 @@ import Handmaid from './handmaid.png'
 import CounterScreen from './view/component/CounterScereen';
 import InputScreen from './view/component/InputScreen'
 import RegisterScreen from './view/component/RegisterScreen';
+import LifecycleScreen from './view/component/LifecycleScreen';
+import HomeScreen from './view/component/HomeScreen';
+import PageNotFound from './view/component/PageNotFound';
+import Navbar from './view/component/Navbar';
+import ProfileScreen from './view/component/ProfileScreen';
+import WETregister from './view/component/WETregister';
+import WETlogin from './view/component/WETlogin';
+import WETnavbar from './view/component/WETnavbar';
+import WETprofile from './view/component/WETprofile';
 
-function App () {
+function App() {
 
 
   let arrBooks = [
@@ -74,18 +85,35 @@ function App () {
   }
 
   return (
-    <div className='App'>
-      {/* <h1>BookSTORE</h1>
-      <div className='row'>{renderProduct()}</div>
-      <CounterScreen /> */}
+    // <div className='App'>
+    //   <Navbar />
+    //   <Switch>
+    //     <Route exact path="/" component={HomeScreen} />
+    //     <Route exact path="/register" component={RegisterScreen} />
+    //     <Route exact path="/input" component={InputScreen} />
+    //     <Route exact path="/profile/:username" component={ProfileScreen} />
+    //     <Route path="*" component={PageNotFound} />
+    //   </Switch>
+    // </div>
 
-      {/* <InputScreen /> */}
+    <div className="App">
+      <WETnavbar />
+      <Switch>
+        <Route exact path="/" component={HomeScreen} />
+        <Route exact path="/register" component={WETregister} />
+        <Route exact path="/login" component={WETlogin} />
+        <Route exact path="/profile/:username" component={WETprofile} />
 
-      <RegisterScreen />
 
+      </Switch>
 
     </div>
+
+
   )
 }
 
-export default App;
+export default withRouter(App)
+
+//  npx json-server --watch db.json -p 2000  (start)
+//  npx json-server --watch db.json -p 2000

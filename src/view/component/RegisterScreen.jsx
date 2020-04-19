@@ -1,95 +1,205 @@
-import React from 'react'
-import { queryAllByAttribute } from '@testing-library/dom'
+import React from "react";
+import { Link, Redirect} from "react-router-dom";
 
 class RegisterScreen extends React.Component {
+  state = {
+    username: "",
+    password: "",
+    repPassword: "",
+    isLoggedIn: false,
+    users: [],
+    loginUsername: "",
+    loginPassword: "",
+    currentUsername: "",
+    activeEditIdx: null,
+  };
 
-    state = {
-        username: '',
-        password: '',
-        repassword: '',
-        usernamelogin: '',
-        passwordlogin: '',
-        welcome: '',
-        usernameArr: [],
-        passwordArr: [],
+  inputHandler = (e, field) => {
+    this.setState({ [field]: e.target.value });
+  };
+
+  registerHandler = () => {
+    const { repPassword, password, username, users } = this.state;
+    if (repPassword == password) {
+      let newData = {
+        username,
+        password,
+      };
+
+      this.setState({
+        users: [...users, newData],
+        username: "",
+        password: "",
+        repPassword: "",
+      });
+
+      console.log(users);
+    } else {
+      alert("Password belum cocok");
     }
-    
-    render () {
-        const {username, password, repassword, usernamelogin, passwordlogin, usernameArr, passwordArr, welcome } = this.state
-        
-        const inputHandler = (event, field) => {
-            this.setState({ [field]: event.target.value})
-        }
-        
-        const register = () => {
-            
-            if (password == repassword){
-                this.setState({usernameArr: usernameArr.concat([username])})
-                this.setState({passwordArr: passwordArr.concat([password])})
-                alert('Your account is created')
-                document.getElementById('username').value = ''
-                document.getElementById('password').value = ''
-                document.getElementById('repassword').value = ''
-                
-            } else {
-                alert('Please re-enter the password')
-            }
-        }
-        
-        const login = () => {
-            
-            let login  = 1
-            for ( let i = 0 ; i < usernameArr.length; i ++ ){
-                if ( usernameArr[i] == usernamelogin && passwordArr[i] == passwordlogin ) {
-                    alert('Login Succes')
-                    login = 1
-                } 
+  };
 
-                if (login != 1) {
-                    alert('Incorect Username and Password')
-                }
+  loginHandler = () => {
+    const { loginUsername, loginPassword, users } = this.state;
+    for (let i = 0; i < users.length; i++) {
+      if (
+        users[i].username == loginUsername &&
+        users[i].password == loginPassword
+      ) {
+        this.setState({
+          isLoggedIn: true,
+          currentUsername: users[i].username,
+          loginUsername: "",
+          loginPassword: "",
+        });
+        break;
+      }
 
-            }
-        }
+      if (i == users.length - 1) {
+        alert("User tidak ada atau password salah");
+      }
+    }
+  };
 
+  deleteHandler = (idx) => {
+    const { users } = this.state;
+    let temp = [...users];
+
+    temp.splice(idx, 1);
+
+    this.setState({ users: temp });
+  };
+
+  renderUsers = () => {
+    const { users, activeEditIdx } = this.state;
+    return users.map((val, idx) => {
+      if (idx == activeEditIdx) {
         return (
-            <div>
+          <tr>
+            <td>{idx + 1}</td>
+            {/* <td>{val.username}</td> */}
+            <td>
+              <input type="text" placeholder={val.username} />
+            </td>
+            <td>
+              <input
+                type="button"
+                value="Delete"
+                className="btn btn-danger"
+                onClick={() => this.deleteHandler(idx)}
+              />
+            </td>
+          </tr>
+        );
+      } else {
+        return (
+          <tr>
+            <td>{idx + 1}</td>
+            <td>{val.username}</td>
+            <td>
+              <Link to={`/profile/${val.username}`}>
+                <input type="button" value="Edit" className="btn btn-info" />
+              </Link>
+            </td>
+          </tr>
+        );
+      }
+    });
+  };
 
-                <h1>Register</h1>
 
-                <br/>
-                
+  render() {
+    const {
+      username,
+      password,
+      repPassword,
+      isLoggedIn,
+      users,
+      currentUsername,
+      activeEditIdx,
+      loginPassword,
+      loginUsername,
+    } = this.state;
 
-                <input onChange={(e) => inputHandler(e, 'username')} type="text" placeholder='User Name' id='username'/>
-                <br/> <br/>
-                <input onChange={(e) => inputHandler(e, 'password')} type="text" placeholder='password'id='password'/> 
-                <br/>
-                <input onChange={(e) => inputHandler(e, 'repassword')} type="text" placeholder='re-enter password' id='repassword'/>
-                <br/> <br/>
-                <input type="button" value='Register' className="btn btn-warning" onClick={register}/>
-                <br/> <br/> <br/>
-
-
-                <h1>Login</h1>
-                <input onChange={(e) => inputHandler(e, 'usernamelogin')} type="text" placeholder='User Name'/>
-                <br/> <br/>
-                <input onChange={(e) => inputHandler(e, 'passwordlogin')} type="text" placeholder='password'/>
-                <br/> <br/>
-                <input type="button" value='Login' className="btn btn-warning" onClick={login}/>
-                <br/><br/>
-
-                {
+if (! isLoggedIn) {
     
-                    username == usernamelogin ? ( <h2>Welcome {username}</h2>) : null
-                }
-
-
-
-                <br/>
-               
-            </div>
-        )
-    }
+    return (
+      <div>
+        <h1>Auth Screen</h1>
+        <center className="container">
+          <div className="card p-5" style={{ width: "400px" }}>
+            <h4>Register</h4>
+            <input
+              value={username}
+              className="form-control mt-2"
+              type="text"
+              placeholder="Username"
+              onChange={(e) => this.inputHandler(e, "username")}
+            />
+            <input
+              value={password}
+              className="form-control mt-2"
+              type="text"
+              placeholder="Password"
+              onChange={(e) => this.inputHandler(e, "password")}
+            />
+            <input
+              value={repPassword}
+              className="form-control mt-2"
+              type="text"
+              placeholder="Repeat Password"
+              onChange={(e) => this.inputHandler(e, "repPassword")}
+            />
+            <input
+              type="button"
+              value="Register"
+              className="btn btn-primary mt-3"
+              onClick={this.registerHandler}
+            />
+          </div>
+          {/* <table className="table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Username</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderUsers()}</tbody>
+          </table> */}
+          <div className="card p-5" style={{ width: "400px" }}>
+            <h4>Login</h4>
+            <input
+              value={loginUsername}
+              className="form-control mt-2"
+              type="text"
+              placeholder="Username"
+              onChange={(e) => this.inputHandler(e, "loginUsername")}
+            />
+            <input
+              value={loginPassword}
+              className="form-control mt-2"
+              type="text"
+              placeholder="Password"
+              onChange={(e) => this.inputHandler(e, "loginPassword")}
+            />
+            <input
+              type="button"
+              value="Login"
+              className="btn btn-primary mt-3"
+              onClick={this.loginHandler}
+            />
+          </div>
+          {isLoggedIn ? <h2>Welcome {currentUsername}</h2> : null}
+        </center>
+      </div>
+    );
+} else {
+    return (
+        < Redirect to={`/profile/${currentUsername}`}> </Redirect>
+    )
+}
+  }
 }
 
-export default RegisterScreen
+export default RegisterScreen;

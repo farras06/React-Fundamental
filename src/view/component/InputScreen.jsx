@@ -1,42 +1,59 @@
-import React from 'react'
+import React from "react";
+import { Link } from 'react-router-dom'
 
 class InputScreen extends React.Component {
-    state = {
-        username: '',
-        email: '',
-        textbox: ''
-    }
+  state = {
+    username: "",
+    email: "",
+    textbox: "",
+  };
 
-    render () {
-        const {username, email, textbox } = this.state
+  inputHandler = (event, field) => {
+    this.setState({ [field]: event.target.value });
+  };
 
-        const inputHandler = (event, field) => {
-            this.setState({ [field]: event.target.value})
-        }
+  render() {
+    const { username, email, textbox } = this.state;
 
-        return (
-            <div>
-                <h1>Input Handler</h1>
-                <h3>Welcome {username}</h3>
-                <h3>Your email : {email}</h3>
+    return (
+      <div>
+        <h1>Input Screen</h1>
+        <h3>Username: {username} </h3>
+        <h3>Email: {email} </h3>
+        <input
+          onChange={(e) => this.inputHandler(e, "username")}
+          // onChange={this.inputHandler}
+          type="text"
+          placeholder="Username"
+        />
+        <br />
+        <input
+          onChange={(e) => this.inputHandler(e, "email")}
+          type="text"
+          placeholder="Email"
+        />
+        <br />
+        <textarea
+          onChange={(e) => this.inputHandler(e, "textbox")}
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+        ></textarea>
+        <p> {textbox.length} / 140</p>
 
-                <input onChange={(e) => inputHandler(e, 'username')} type="text" placeholder='User Name'/>
-                <br/>
-                <input onChange={(e) => inputHandler(e, 'email')} type="text" placeholder='User Name'/>
-                <br/> <br/>
-                <textarea 
-                    name="" 
-                    id="textbox" 
-                    cols="30" 
-                    rows="10"
-                    onChange= {(e) => inputHandler(e, 'textbox')}>
-                </textarea>
-                <br/>
-                <p> {textbox.lenght} /150</p>
-                
-            </div>
-        )
-    }
+        <Link to={'/profile/' + username}>
+        
+        <input 
+            type="button" 
+            className="btn btn-danger" 
+            value="click me" 
+        />
+        
+        </Link>
+      </div>
+    );
+  }
 }
 
-export default InputScreen
+export default InputScreen;
