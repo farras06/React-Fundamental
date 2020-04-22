@@ -43,7 +43,7 @@ class WETprofile extends React.Component {
                             </ul>
 
                             <ul>
-                                Full Name: {user.fullname}
+                                Full Name: {user.fullName}
                             </ul>
 
                             <ul>

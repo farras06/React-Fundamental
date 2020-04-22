@@ -2,14 +2,17 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import Axios from 'axios'
 import { API_URL } from '../../constatnts/API'
+import { loginHandler, registerHandler } from "../../redux/actions"
+import { connect } from 'react-redux'
 
 class WETregister extends React.Component {
 
     state = {
         username: "",
-        fullname: "",
+        fullName: "",
         password: "",
-        role: ""
+        role: "",
+        isLoading: false
 
     };
 
@@ -21,57 +24,62 @@ class WETregister extends React.Component {
     registerUser = () => {
         const {
             username,
-            fullname,
+            fullName,
             password,
             role
         } = this.state;
 
-        Axios.get(`${API_URL}/user`, {
+        const userData = { username, password, fullName, role }
 
-            params: {
-                username: `${username}`
-            }
+        this.props.onRegister(userData)
 
-        })
-            .then((res) => {
-                console.log(res.data)
-                if (res.data.length >= 0) {
-                    alert("username is alreasy exist")
-                } else {
-                    Axios.post(`${API_URL}/user`, {
-                        username: username,
-                        fullname: fullname,
-                        password: password,
-                        role: role,
-                    })
+        // this.setState({ isLoading: true })
+        // Axios.get(`${API_URL}/user`, {
 
-                        .then((res) => {
-                            console.log(res)
-                            alert("New Profile is Succesfully Added")
-                            this.setState({
-                                username: "",
-                                fullname: "",
-                                password: "",
-                                role: ""
-                            })
-                        })
+        //     params: {
+        //         username: `${username}`
+        //     }
 
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                }
+        // })
+        //     .then((res) => {
+        //         console.log(res.data)
+        //         if (res.data.length >= 0) {
+        //             alert("username is alreasy exist")
+        //         } else {
+        //             Axios.post(`${API_URL}/user`, {
+        //                 username: username,
+        //                 fullName: fullName,
+        //                 password: password,
+        //                 role: role,
+        //             })
 
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        //                 .then((res) => {
+        //                     console.log(res)
+        //                     alert("New Profile is Succesfully Added")
+        //                     this.setState({
+        //                         username: "",
+        //                         fullName: "",
+        //                         password: "",
+        //                         role: ""
+        //                     })
+        //                 })
+
+        //                 .catch((err) => {
+        //                     console.log(err)
+        //                 })
+        //         }
+
+        //     })
+        //     .catch((err) => {
+        //         console.log(err)
+        //     })
     }
 
     render() {
 
         const {
             username,
-            fullname,
+            fullName,
             password,
             role
         } = this.state;
@@ -83,6 +91,8 @@ class WETregister extends React.Component {
                 <center className="container">
                     <div className="card p-5" style={{ width: "400px" }}>
                         <h4>Register</h4>
+
+                        <p>User Name: {this.props.user.username} </p>
                         <input
                             value={username}
                             className="form-control mt-2"
@@ -91,11 +101,11 @@ class WETregister extends React.Component {
                             onChange={(e) => this.inputHandler(e, "username")}
                         />
                         <input
-                            value={fullname}
+                            value={fullName}
                             className="form-control mt-2"
                             type="text"
                             placeholder="Full Name"
-                            onChange={(e) => this.inputHandler(e, "fullname")}
+                            onChange={(e) => this.inputHandler(e, "fullName")}
                         />
                         <input
                             value={password}
@@ -131,4 +141,16 @@ class WETregister extends React.Component {
     }
 }
 
-export default WETregister
+const mapStateToProps = state => {
+    return {
+
+        user: state.user
+    }
+}
+
+const mapDispatchToProp = {
+
+    onRegister: registerHandler
+}
+
+export default connect(mapStateToProps, mapDispatchToProp)(WETregister)

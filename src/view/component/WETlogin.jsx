@@ -2,6 +2,9 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import Axios from 'axios'
 import { API_URL } from '../../constatnts/API'
+import { loginHandler } from "../../redux/actions"
+import { connect } from 'react-redux'
+
 
 class WETlogin extends React.Component {
 
@@ -23,29 +26,35 @@ class WETlogin extends React.Component {
             password,
         } = this.state
 
-        Axios.get(`${API_URL}/user`, {
-            params: {
-                username: `${username}`,
-                password: `${password}`
-            }
-        })
-            .then((res) => {
-                if (res.data.length >= 1) {
+        const userData = { username, password }
 
-                    return (
-                        this.setState({ isLogin: true })
-                    )
+        this.props.onLogin(userData)
 
-                } else {
-                    alert("Username and Password is in Correct")
+        // Axios.get(`${API_URL}/user`, {
+        //     params: {
+        //         username: `${username}`,
+        //         password: `${password}`
+        //     }
+        // })
+        //     .then((res) => {
+        //         if (res.data.length >= 1) {
 
-                }
+        //             this.props.onChangeUsername(username)
+        //             return (
+        //                 this.setState({ isLogin: true })
 
-            })
+        //             )
 
-            .catch((err) => {
-                console.log(err.data)
-            })
+        //         } else {
+        //             alert("Username and Password is in Correct")
+
+        //         }
+
+        //     })
+
+        //     .catch((err) => {
+        //         console.log(err.data)
+        //     })
 
     }
 
@@ -65,6 +74,7 @@ class WETlogin extends React.Component {
                     <center className="container">
                         <div className="card p-5" style={{ width: "400px" }}>
                             <h4>Login</h4>
+                            <p>User Name: {this.props.user.username}</p>
                             <input
                                 value={username}
                                 className="form-control mt-2"
@@ -84,7 +94,7 @@ class WETlogin extends React.Component {
                             />
                             <input
                                 type="button"
-                                value="Register"
+                                value="Login"
                                 className="btn btn-primary mt-3"
                                 onClick={this.userlogin}
                             />
@@ -106,4 +116,16 @@ class WETlogin extends React.Component {
     }
 }
 
-export default WETlogin
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = {
+    onLogin: loginHandler
+
+}
+
+// export default LoginScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(WETlogin)

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom"
+import Cookie from 'universal-cookie'
 
 import logo from './logo.svg';
 import './App.css';
@@ -21,11 +22,13 @@ import WETregister from './view/component/WETregister';
 import WETlogin from './view/component/WETlogin';
 import WETnavbar from './view/component/WETnavbar';
 import WETprofile from './view/component/WETprofile';
+import TodoReduxScreen from './view/component/TodoReduxScreen';
 
-function App() {
+const Cookieobject = new Cookie()
 
+class App extends React.Component {
 
-  let arrBooks = [
+  arrBooks = [
     {
       author: "Margaret Atwood",
       title: "The handmaid's tale",
@@ -78,39 +81,48 @@ function App() {
     },
   ];
 
-  const renderProduct = () => {
-    return arrBooks.map(val => {
+  renderProduct = () => {
+    return this.arrBooks.map(val => {
       return <div className='col-md-4'><ProductBooks productData={val} /></div>
     })
   }
 
-  return (
-    // <div className='App'>
-    //   <Navbar />
-    //   <Switch>
-    //     <Route exact path="/" component={HomeScreen} />
-    //     <Route exact path="/register" component={RegisterScreen} />
-    //     <Route exact path="/input" component={InputScreen} />
-    //     <Route exact path="/profile/:username" component={ProfileScreen} />
-    //     <Route path="*" component={PageNotFound} />
-    //   </Switch>
-    // </div>
+  render() {
 
-    <div className="App">
-      <WETnavbar />
-      <Switch>
-        <Route exact path="/" component={HomeScreen} />
-        <Route exact path="/register" component={WETregister} />
-        <Route exact path="/login" component={WETlogin} />
-        <Route exact path="/profile/:username" component={WETprofile} />
+    return (
+      // <div className='App'>
+      //   <Navbar />
+      //   <Switch>
+      //     <Route exact path="/" component={HomeScreen} />
+      //     <Route exact path="/register" component={RegisterScreen} />
+      //     <Route exact path="/input" component={InputScreen} />
+      //     <Route exact path="/profile/:username" component={ProfileScreen} />
+      //     <Route path="*" component={PageNotFound} />
+      //   </Switch>
+      // </div>
 
-
-      </Switch>
-
-    </div>
+      <div className="App">
+        <WETnavbar />
+        <Switch>
+          <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/register" component={WETregister} />
+          <Route exact path="/login" component={WETlogin} />
+          <Route exact path="/profile/:username" component={WETprofile} />
 
 
-  )
+        </Switch>
+
+        {/* <InputScreen /> */}
+
+
+        {/* <TodoReduxScreen /> */}
+
+      </div>
+
+
+    )
+  }
+
 }
 
 export default withRouter(App)

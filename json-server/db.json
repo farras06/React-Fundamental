@@ -4,7 +4,7 @@
   "user": [
     {
       "id": 1,
-      "username": "Budi",
+      "username": "budi",
       "password": "password",
       "fullName": "Budi Malas",
       "role": "admin"
@@ -17,88 +17,60 @@
       "role": "admin"
     },
     {
-      "username": "Will",
+      "username": "will",
       "password": "password",
-      "fullname": "Will i will",
+      "fullName": "Will i will",
       "role": "user",
       "id": 3
     },
     {
-      "username": "budi",
-      "fullname": "budi",
+      "username": "Jali",
       "password": "123",
-      "role": "admin",
+      "fullName": "",
+      "role": "",
       "id": 4
     },
     {
-      "username": "budi",
-      "fullname": "",
-      "password": "",
+      "username": "Bali",
+      "password": "123",
+      "fullName": "",
       "role": "",
       "id": 5
     },
     {
-      "username": "budi",
-      "fullname": "",
+      "username": "Doraemon",
       "password": "123",
+      "fullName": "",
       "role": "",
       "id": 6
     },
     {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
+      "username": "Nobita",
+      "password": "123",
+      "fullName": "",
       "role": "",
       "id": 7
     },
     {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
+      "username": "Intan",
+      "password": "123",
+      "fullName": "",
       "role": "",
       "id": 8
     },
     {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
+      "username": "Cayang",
+      "password": "123",
+      "fullName": "",
       "role": "",
       "id": 9
     },
     {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
+      "username": "mantap",
+      "password": "123",
+      "fullName": "",
       "role": "",
       "id": 10
-    },
-    {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
-      "role": "",
-      "id": 11
-    },
-    {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
-      "role": "",
-      "id": 12
-    },
-    {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
-      "role": "",
-      "id": 13
-    },
-    {
-      "username": "adi",
-      "fullname": "",
-      "password": "",
-      "role": "",
-      "id": 14
     }
   ]
 }
