@@ -21,6 +21,17 @@ export default (state = init_state, action) => {
 
   } else if (action.type === "ON_LOGIN_FAIL") {
     return { ...state, errMSG: action.payload }
+
+  } else if (action.type === "ON_LOGOUT") {
+    return {
+      ...state,
+      username: action.payload,
+      fullName: action.payload,
+      role: action.payload,
+      password: action.payload,
+      id: action.payload,
+      errMsg: "Berhasil Logout"
+    };
   }
 
   return { ...state };

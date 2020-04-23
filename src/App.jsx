@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom"
 import Cookie from 'universal-cookie'
+import { connect } from 'react-redux'
+import { userKeepLogin } from '../src/redux/actions'
 
 import logo from './logo.svg';
 import './App.css';
@@ -10,6 +12,7 @@ import Brave from './brave.png'
 import Crazy from './crazyRich.png'
 import Educated from './educated.png'
 import Handmaid from './handmaid.png'
+
 import CounterScreen from './view/component/CounterScereen';
 import InputScreen from './view/component/InputScreen'
 import RegisterScreen from './view/component/RegisterScreen';
@@ -18,11 +21,13 @@ import HomeScreen from './view/component/HomeScreen';
 import PageNotFound from './view/component/PageNotFound';
 import Navbar from './view/component/Navbar';
 import ProfileScreen from './view/component/ProfileScreen';
+
 import WETregister from './view/component/WETregister';
 import WETlogin from './view/component/WETlogin';
 import WETnavbar from './view/component/WETnavbar';
 import WETprofile from './view/component/WETprofile';
 import TodoReduxScreen from './view/component/TodoReduxScreen';
+
 
 const Cookieobject = new Cookie()
 
@@ -87,6 +92,15 @@ class App extends React.Component {
     })
   }
 
+  componentDidMount() {
+    let cookieResult = Cookieobject.get("authData")
+    console.log(cookieResult.id)
+    this.props.userKeepLogin(cookieResult)
+
+  }
+
+
+
   render() {
 
     return (
@@ -125,7 +139,18 @@ class App extends React.Component {
 
 }
 
-export default withRouter(App)
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
 
-//  npx json-server --watch db.json -p 2000  (start)
-//  npx json-server --watch db.json -p 2000
+const mapDispatchToProps = {
+
+  userKeepLogin
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App))
+
+//  npx json-server --watch db.json -p 2000  (start json-server)

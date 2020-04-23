@@ -4,6 +4,9 @@ import Axios from 'axios'
 import { API_URL } from '../../constatnts/API'
 import { loginHandler } from "../../redux/actions"
 import { connect } from 'react-redux'
+import Cookie from 'universal-cookie'
+
+const Cookieobject = new Cookie()
 
 
 class WETlogin extends React.Component {
@@ -58,6 +61,14 @@ class WETlogin extends React.Component {
 
     }
 
+    componentDidUpdate() {
+        if (this.props.user.id) {
+            Cookieobject.set("authData", JSON.stringify(this.props.user))
+
+
+        }
+    }
+
     render() {
 
         const {
@@ -66,53 +77,56 @@ class WETlogin extends React.Component {
             isLogin = false
         } = this.state
 
-        if (!isLogin) {
-            return (
+        // if (!this.props.user.id) {
+        return (
 
-                <div>
-                    <h1>Auth Screen</h1>
-                    <center className="container">
-                        <div className="card p-5" style={{ width: "400px" }}>
-                            <h4>Login</h4>
-                            <p>User Name: {this.props.user.username}</p>
-                            <input
-                                value={username}
-                                className="form-control mt-2"
-                                type="text"
-                                placeholder="Username"
-                                onChange={(e) => this.inputHandler(e, "username")}
-                            />
+            <div>
+                <h1>Auth Screen</h1>
+                <center className="container">
+                    <div className="card p-5" style={{ width: "400px" }}>
+                        <h4>Login</h4>
+                        <p>User Name: {this.props.user.username}</p>
+                        <input
+                            value={username}
+                            className="form-control mt-2"
+                            type="text"
+                            placeholder="Username"
+                            onChange={(e) => this.inputHandler(e, "username")}
+                        />
 
-                            <input
-                                value={password}
-                                className="form-control mt-2"
-                                type="text"
-                                placeholder="Password"
-                                onChange={(e) => this.inputHandler(e, "password")}
+                        <input
+                            value={password}
+                            className="form-control mt-2"
+                            type="text"
+                            placeholder="Password"
+                            onChange={(e) => this.inputHandler(e, "password")}
 
 
-                            />
-                            <input
-                                type="button"
-                                value="Login"
-                                className="btn btn-primary mt-3"
-                                onClick={this.userlogin}
-                            />
-                        </div>
+                        />
+                        <input
+                            type="button"
+                            value="Login"
+                            className="btn btn-primary mt-3"
+                            onClick={this.userlogin}
+                        />
+                    </div>
 
-                    </center>
+                </center>
 
-                </div>
+            </div>
 
-            )
+        )
 
-        } else {
+        // } else {
 
-            return (
+        //     return (
 
-                <Redirect to={`profile/${username}`}></Redirect>
-            )
-        }
+        //         <Redirect to={`profile/${username}`}></Redirect>
+        //         // <div>
+        //         //     <p>...</p>
+        //         // </div>
+        //     )
+        // }
     }
 }
 
